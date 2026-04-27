@@ -204,23 +204,62 @@ ${searchResults || 'Not available.'}`
   const reportId = lead.report_id
   const reportUrl = `${process.env.NEXT_PUBLIC_COMPANY_URL ?? 'http://localhost:3000'}/report/${reportId}`
 
-  // Send email (non-blocking)
+  const bookUrl = process.env.NEXT_PUBLIC_CAL_USERNAME
+    ? `https://cal.com/${process.env.NEXT_PUBLIC_CAL_USERNAME}`
+    : `${process.env.NEXT_PUBLIC_COMPANY_URL ?? 'https://aiimplementationcenter.com'}/book`
+
   getResend().emails.send({
-    from: process.env.RESEND_FROM_EMAIL ?? 'reports@yourdomain.com',
+    from: process.env.RESEND_FROM_EMAIL ?? 'info@aiimplementationcenter.com',
     replyTo: process.env.RESEND_REPLY_TO,
     to: contactEmail,
     subject: `Your AI Readiness Report — ${companyName}`,
-    html: `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:32px;">
-        <h2 style="color:#0F172A;">Hi ${contactName},</h2>
-        <p style="color:#475569;">Your personalized AI readiness report for <strong>${companyName}</strong> is ready.</p>
-        <a href="${reportUrl}" style="display:inline-block;background:#3B82F6;color:white;font-weight:bold;padding:14px 28px;border-radius:10px;text-decoration:none;margin:16px 0;">
-          View Your Report →
-        </a>
-        <p style="color:#64748B;font-size:14px;">This link is shareable — feel free to send it to your team.</p>
-        <p style="color:#64748B;font-size:14px;">Questions? Reply to this email or <a href="${process.env.NEXT_PUBLIC_COMPANY_URL}/book">book a free strategy call</a>.</p>
-      </div>
-    `,
+    html: `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#F1F5F9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F1F5F9;padding:40px 0;">
+<tr><td align="center">
+<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;max-width:600px;">
+  <tr><td style="background:#0F172A;padding:32px 40px;text-align:center;">
+    <p style="margin:0 0 6px;color:#94A3B8;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;">AI Implementation Center</p>
+    <h1 style="margin:0;color:#ffffff;font-size:24px;font-weight:700;">Your AI Readiness Report</h1>
+  </td></tr>
+  <tr><td style="padding:40px;">
+    <p style="margin:0 0 16px;color:#0F172A;font-size:16px;font-weight:600;">Hi ${contactName},</p>
+    <p style="margin:0 0 28px;color:#475569;font-size:15px;line-height:1.7;">
+      Your personalized AI readiness report for <strong style="color:#0F172A;">${companyName}</strong> is ready.
+      Our AI analyzed your website and industry to surface real use cases, ROI estimates, and a 90-day roadmap built specifically for your business.
+    </p>
+    <table cellpadding="0" cellspacing="0" style="margin:0 auto 36px;">
+      <tr><td style="background:#3B82F6;border-radius:12px;">
+        <a href="${reportUrl}" style="display:inline-block;padding:16px 40px;color:#ffffff;font-weight:700;font-size:16px;text-decoration:none;">View Your Report &rarr;</a>
+      </td></tr>
+    </table>
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#F8FAFC;border-radius:12px;margin-bottom:28px;">
+      <tr><td style="padding:24px;">
+        <p style="margin:0 0 14px;color:#0F172A;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">What&rsquo;s inside</p>
+        <p style="margin:0 0 10px;color:#475569;font-size:14px;">&#10003;&nbsp; Your AI Maturity Stage (1&ndash;4) with a personalized description</p>
+        <p style="margin:0 0 10px;color:#475569;font-size:14px;">&#10003;&nbsp; What our AI found on your website &amp; how to improve it</p>
+        <p style="margin:0 0 10px;color:#475569;font-size:14px;">&#10003;&nbsp; Your top AI use cases with estimated ROI</p>
+        <p style="margin:0 0 10px;color:#475569;font-size:14px;">&#10003;&nbsp; A personalized 90-day AI roadmap</p>
+        <p style="margin:0;color:#475569;font-size:14px;">&#10003;&nbsp; The Command Center &mdash; your AI business intelligence hub</p>
+      </td></tr>
+    </table>
+    <p style="margin:0 0 8px;color:#64748B;font-size:13px;">This link is shareable &mdash; feel free to send it to your team.</p>
+    <p style="margin:0 0 28px;color:#64748B;font-size:13px;">Questions? Reply to this email or <a href="${bookUrl}" style="color:#3B82F6;text-decoration:none;font-weight:600;">book a free 30-minute strategy call</a>.</p>
+    <table cellpadding="0" cellspacing="0" style="width:100%;">
+      <tr><td style="background:#0F172A;border-radius:12px;padding:20px 24px;">
+        <p style="margin:0 0 6px;color:#ffffff;font-weight:700;font-size:14px;">Ready to put your report into action?</p>
+        <p style="margin:0 0 14px;color:#94A3B8;font-size:13px;line-height:1.5;">Book a free strategy call. We&rsquo;ll walk through your report together and map out exactly where to start.</p>
+        <a href="${bookUrl}" style="display:inline-block;background:#3B82F6;color:#ffffff;font-weight:700;font-size:13px;padding:10px 24px;border-radius:8px;text-decoration:none;">Book Your Free Call</a>
+      </td></tr>
+    </table>
+  </td></tr>
+  <tr><td style="background:#F8FAFC;padding:20px 40px;text-align:center;border-top:1px solid #E2E8F0;">
+    <p style="margin:0;color:#94A3B8;font-size:12px;">AI Implementation Center &bull; aiimplementationcenter.com</p>
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</body></html>`,
   }).catch(console.error)
 
   return Response.json({ reportId })
