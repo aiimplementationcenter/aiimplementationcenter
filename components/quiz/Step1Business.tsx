@@ -94,10 +94,16 @@ export default function Step1Business({ data, onNext, onBack, isLast }: Props) {
             Company Website <span className="text-blue-500 font-normal text-xs ml-1">← our AI will scan this</span>
           </label>
           <input
-            type="url"
+            type="text"
             value={form.websiteUrl}
             onChange={(e) => setForm((p) => ({ ...p, websiteUrl: e.target.value }))}
-            placeholder="https://yourcompany.com"
+            onBlur={(e) => {
+              const val = e.target.value.trim()
+              if (val && !/^https?:\/\//i.test(val)) {
+                setForm((p) => ({ ...p, websiteUrl: 'https://' + val }))
+              }
+            }}
+            placeholder="yourcompany.com"
             className="w-full border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
           />
           {errors.websiteUrl && <p className="text-red-500 text-xs mt-1">{errors.websiteUrl}</p>}

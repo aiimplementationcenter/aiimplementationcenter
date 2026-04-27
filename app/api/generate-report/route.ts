@@ -176,7 +176,7 @@ ${searchResults || 'Not available.'}`
     reportContent = JSON.parse(cleaned)
   } catch (err) {
     console.error('LLM or parse error:', err)
-    return Response.json({ error: 'Failed to generate report' }, { status: 500 })
+    return Response.json({ error: 'Failed to generate report', detail: String(err) }, { status: 500 })
   }
 
   // Save to Supabase
@@ -198,7 +198,7 @@ ${searchResults || 'Not available.'}`
 
   if (dbError || !lead) {
     console.error('DB error:', dbError)
-    return Response.json({ error: 'Failed to save report' }, { status: 500 })
+    return Response.json({ error: 'Failed to save report', detail: dbError?.message }, { status: 500 })
   }
 
   const reportId = lead.report_id

@@ -59,12 +59,12 @@ export default function QuizWrapper() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(finalData),
       })
-      if (!res.ok) throw new Error('Failed to generate report')
-      const { reportId } = await res.json()
-      router.push(`/report/${reportId}`)
-    } catch {
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.detail || json.error || 'Failed to generate report')
+      router.push(`/report/${json.reportId}`)
+    } catch (err) {
       setLoading(false)
-      alert('Something went wrong generating your report. Please try again.')
+      alert(`Something went wrong: ${err instanceof Error ? err.message : 'Please try again.'}`)
     }
   }
 
