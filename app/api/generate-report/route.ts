@@ -3,6 +3,8 @@ import OpenAI from 'openai'
 import { supabase } from '@/lib/supabase'
 import { Resend } from 'resend'
 
+export const maxDuration = 60
+
 function getOpenAI() {
   return new OpenAI({
     baseURL: 'https://openrouter.ai/api/v1',
@@ -23,7 +25,7 @@ async function scrapeWebsite(url: string): Promise<string> {
     const jinaUrl = `https://r.jina.ai/${url}`
     const res = await fetch(jinaUrl, {
       headers: { Accept: 'text/plain' },
-      signal: AbortSignal.timeout(15000),
+      signal: AbortSignal.timeout(8000),
     })
     if (!res.ok) return ''
     const text = await res.text()
@@ -44,7 +46,7 @@ async function searchInternet(query: string): Promise<string> {
         max_results: 4,
         include_answer: true,
       }),
-      signal: AbortSignal.timeout(10000),
+      signal: AbortSignal.timeout(6000),
     })
     if (!res.ok) return ''
     const data = await res.json()
