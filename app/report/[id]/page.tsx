@@ -42,6 +42,7 @@ interface ReportContent {
   useCases: { title: string; description: string; estimatedROI: string; firstStep: string }[]
   aiRoleOpportunities: { role: string; whatAICanDo: string; availability: string; estimatedSavings: string }[]
   roadmap: { phase1: string[]; phase2: string[]; phase3: string[] }
+  totalRoleSavings?: string
   commandCenterNote: string
 }
 
@@ -65,6 +66,18 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
 
   return (
     <div className="bg-slate-50 min-h-screen">
+
+      {/* Sticky CTA Bar */}
+      <div className="sticky top-0 z-50 bg-blue-600 text-white py-2.5 px-4 text-center shadow-lg">
+        <span className="text-sm font-medium mr-3 hidden sm:inline">Ready to put this into action?</span>
+        <Link
+          href={bookUrl}
+          className="inline-flex items-center gap-1.5 bg-white text-blue-600 font-bold px-4 py-1.5 rounded-lg text-sm hover:bg-blue-50 transition-colors"
+        >
+          Book Your Free Strategy Call <ArrowRight size={14} />
+        </Link>
+      </div>
+
       {/* Report Header */}
       <section className="bg-slate-900 text-white py-14">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,9 +87,15 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
           <h1 className="text-3xl md:text-4xl font-bold mb-3">
             {data.company_name}&apos;s AI Readiness Report
           </h1>
-          <p className="text-slate-300 text-lg">
+          <p className="text-slate-300 text-lg mb-6">
             A personalized analysis of where you are today and where AI can take you.
           </p>
+          <Link
+            href={bookUrl}
+            className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-white font-bold px-6 py-3 rounded-xl transition-colors"
+          >
+            Book Your Free Strategy Call <ArrowRight size={18} />
+          </Link>
         </div>
       </section>
 
@@ -149,6 +168,20 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
           </div>
         </div>
 
+        {/* Mid-report CTA */}
+        <div className="bg-blue-600 text-white rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <p className="font-bold text-lg">Seeing opportunities for your business?</p>
+            <p className="text-blue-100 text-sm">Book a free 30-minute call — we&apos;ll walk through this report together and show you exactly where to start.</p>
+          </div>
+          <Link
+            href={bookUrl}
+            className="shrink-0 inline-flex items-center gap-2 bg-white text-blue-600 font-bold px-6 py-3 rounded-xl hover:bg-blue-50 transition-colors"
+          >
+            Book a Free Call <ArrowRight size={16} />
+          </Link>
+        </div>
+
         {/* AI Role Opportunities */}
         {report.aiRoleOpportunities?.length > 0 && (
           <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
@@ -174,6 +207,12 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
                 </div>
               ))}
             </div>
+            {report.totalRoleSavings && (
+              <div className="mt-6 bg-emerald-50 border-2 border-emerald-200 rounded-xl px-6 py-4 flex items-center justify-between gap-4">
+                <p className="text-emerald-800 font-semibold text-sm">Total estimated annual savings vs. hiring these roles:</p>
+                <p className="text-emerald-700 font-bold text-xl shrink-0">{report.totalRoleSavings}</p>
+              </div>
+            )}
           </div>
         )}
 
@@ -223,10 +262,10 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
           <div className="bg-slate-800 rounded-xl p-5 border border-slate-700 mb-6">
             <div className="grid grid-cols-2 gap-3 mb-4">
               {[
-                { label: 'Revenue MTD', value: '$48,200', color: 'text-emerald-400' },
-                { label: 'Open Leads', value: '34', color: 'text-blue-400' },
-                { label: 'Pending Tasks', value: '12', color: 'text-orange-400' },
-                { label: 'At-Risk Customers', value: '7', color: 'text-red-400' },
+                { label: 'New Leads This Week', value: '18', color: 'text-blue-400' },
+                { label: 'Jobs Scheduled', value: '12', color: 'text-emerald-400' },
+                { label: 'Follow-ups Due', value: '9', color: 'text-orange-400' },
+                { label: 'Warranty Expiring Soon', value: '4', color: 'text-red-400' },
               ].map((s) => (
                 <div key={s.label} className="bg-slate-700 rounded-lg p-3">
                   <p className="text-slate-400 text-xs">{s.label}</p>
@@ -236,8 +275,8 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
             </div>
             <div className="bg-slate-700 rounded-lg p-3 text-sm">
               <p className="text-slate-400 text-xs mb-2">Ask your AI anything...</p>
-              <p className="text-blue-300">&ldquo;Which customers haven&apos;t ordered in 60 days?&rdquo;</p>
-              <p className="text-slate-300 mt-1 text-xs">Found 7. Top priority: Acme Corp. Want me to draft a follow-up?</p>
+              <p className="text-blue-300">&ldquo;Which leads haven&apos;t been followed up with in 3 days?&rdquo;</p>
+              <p className="text-slate-300 mt-1 text-xs">Found 6 leads. Want me to draft follow-up messages for each?</p>
             </div>
           </div>
 
@@ -255,18 +294,22 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
         </div>
 
         {/* CTA */}
-        <div className="bg-blue-600 text-white rounded-2xl p-10 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3">Ready to put this into action?</h2>
-          <p className="text-blue-100 mb-8 text-lg max-w-lg mx-auto">
-            Book a free 30-minute strategy call. We&apos;ll walk through your report together and map out exactly where to start.
+        <div className="bg-slate-900 text-white rounded-2xl p-10 text-center">
+          <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-3">Your next step</p>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Let&apos;s build this together.</h2>
+          <p className="text-slate-300 mb-3 text-lg max-w-lg mx-auto">
+            This report is just the beginning. On a free 30-minute strategy call, we&apos;ll pick the highest-ROI opportunity from your report and show you exactly what implementation looks like.
+          </p>
+          <p className="text-slate-400 text-sm mb-8 max-w-md mx-auto">
+            Most clients see their first AI win within 2 weeks of our first session.
           </p>
           <Link
             href={bookUrl}
-            className="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-blue-50 font-bold px-10 py-4 rounded-xl text-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-blue-500 hover:bg-blue-400 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors mb-4"
           >
             Book Your Free Strategy Call <ArrowRight size={20} />
           </Link>
-          <p className="text-blue-200 text-sm mt-4">No pressure. No pitch. Just your roadmap.</p>
+          <p className="text-slate-500 text-sm">No pitch. No pressure. Just your roadmap and a clear next step.</p>
         </div>
 
       </div>

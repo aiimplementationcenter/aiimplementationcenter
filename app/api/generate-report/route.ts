@@ -69,7 +69,7 @@ const REPORT_SCHEMA = `{
       "title": <string — specific to this company, not a generic category>,
       "description": <string — 2 sentences, referencing their actual business activities>,
       "estimatedROI": <string — quantified where possible, e.g. "Saves ~6 hrs/week" or "30–40% faster response time">,
-      "firstStep": <string — a concrete, specific first action they can take this week>
+      "firstStep": <string — a concrete next step framed as what we would implement together, starting with "Book a strategy call and we'll..." or "In your first session with us, we'll..." — never suggest DIY tools>
     }
   ],
   "aiRoleOpportunities": [
@@ -85,6 +85,7 @@ const REPORT_SCHEMA = `{
     "phase2": [<string>, <string>],
     "phase3": [<string>, <string>]
   },
+  "totalRoleSavings": <string — total estimated annual savings across ALL roles combined, e.g. "$120,000–$180,000/year">,
   "commandCenterNote": <string — 2 sentences, specific to this company's tools/challenges>
 }`
 
@@ -114,6 +115,8 @@ CRITICAL RULES — violating these makes the report worthless:
 4. AI role opportunities must explain exactly how AI replaces the role for THIS company's context, not generically.
 5. Use a warm, direct, non-jargon tone. Write like a smart advisor, not a consultant.
 6. All observations must come from the actual website content provided — do not fabricate details.
+7. NEVER suggest DIY tools (ChatGPT, Zapier, Tidio, etc.) in firstStep. Every firstStep must frame the work as something WE implement together after a strategy call.
+8. maturityDescription must create urgency — name a specific competitive risk of waiting, not just encouragement.
 
 Return ONLY valid JSON matching this exact schema — no markdown, no extra text:
 ${REPORT_SCHEMA}
