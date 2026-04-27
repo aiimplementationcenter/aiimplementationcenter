@@ -163,7 +163,7 @@ ${searchResults || 'Not available.'}`
 
   try {
     const completion = await getOpenAI().chat.completions.create({
-      model: process.env.OPENROUTER_MODEL ?? 'google/gemini-flash-1.5',
+      model: process.env.OPENROUTER_MODEL ?? 'google/gemini-2.0-flash-001',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
