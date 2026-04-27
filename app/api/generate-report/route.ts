@@ -3,16 +3,20 @@ import OpenAI from 'openai'
 import { supabase } from '@/lib/supabase'
 import { Resend } from 'resend'
 
-const openai = new OpenAI({
-  baseURL: 'https://openrouter.ai/api/v1',
-  apiKey: process.env.OPENROUTER_API_KEY!,
-  defaultHeaders: {
-    'HTTP-Referer': process.env.NEXT_PUBLIC_COMPANY_URL ?? 'https://localhost:3000',
-    'X-Title': process.env.NEXT_PUBLIC_COMPANY_NAME ?? 'AI Implementation Center',
-  },
-})
+function getOpenAI() {
+  return new OpenAI({
+    baseURL: 'https://openrouter.ai/api/v1',
+    apiKey: process.env.OPENROUTER_API_KEY!,
+    defaultHeaders: {
+      'HTTP-Referer': process.env.NEXT_PUBLIC_COMPANY_URL ?? 'https://localhost:3000',
+      'X-Title': process.env.NEXT_PUBLIC_COMPANY_NAME ?? 'AI Implementation Center',
+    },
+  })
+}
 
-const resend = new Resend(process.env.RESEND_API_KEY!)
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY!)
+}
 
 async function scrapeWebsite(url: string): Promise<string> {
   try {
@@ -156,7 +160,7 @@ ${searchResults || 'Not available.'}`
   let reportContent: Record<string, unknown>
 
   try {
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: process.env.OPENROUTER_MODEL ?? 'google/gemini-flash-1.5',
       messages: [
         { role: 'system', content: systemPrompt },
@@ -201,7 +205,7 @@ ${searchResults || 'Not available.'}`
   const reportUrl = `${process.env.NEXT_PUBLIC_COMPANY_URL ?? 'http://localhost:3000'}/report/${reportId}`
 
   // Send email (non-blocking)
-  resend.emails.send({
+  getResend().emails.send({
     from: process.env.RESEND_FROM_EMAIL ?? 'reports@yourdomain.com',
     replyTo: process.env.RESEND_REPLY_TO,
     to: contactEmail,
