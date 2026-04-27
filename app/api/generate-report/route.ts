@@ -203,7 +203,7 @@ ${searchResults || 'Not available.'}`
   // Send email (non-blocking)
   resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL ?? 'reports@yourdomain.com',
-    reply_to: process.env.RESEND_REPLY_TO,
+    replyTo: process.env.RESEND_REPLY_TO,
     to: contactEmail,
     subject: `Your AI Readiness Report — ${companyName}`,
     html: `
