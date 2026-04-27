@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Bot, BarChart3, Zap, CheckCircle, Clock, TrendingUp, Users } from 'lucide-react'
 
 const PREVIEW_USE_CASES = [
@@ -55,39 +56,53 @@ export default function HomePage() {
     <div>
       {/* Hero */}
       <section className="bg-slate-900 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium px-4 py-2 rounded-full mb-6">
-              <Zap size={14} />
-              Free AI Readiness Report — No credit card required
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left: Text */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium px-4 py-2 rounded-full mb-6">
+                <Zap size={14} />
+                Free AI Readiness Report — No credit card required
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                Find out exactly how AI can{' '}
+                <span className="text-blue-400">transform your business</span>
+                {' '}— in 5 minutes
+              </h1>
+              <p className="text-slate-300 text-lg leading-relaxed mb-10">
+                Answer a few questions about your business and get a personalized AI readiness report
+                with real use cases, estimated ROI, and a 90-day roadmap built specifically for your company.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/quiz"
+                  className="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
+                >
+                  Get My Free Report <ArrowRight size={20} />
+                </Link>
+                <Link
+                  href="/use-cases"
+                  className="inline-flex items-center justify-center gap-2 border border-slate-600 hover:border-slate-400 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
+                >
+                  Browse AI Use Cases
+                </Link>
+              </div>
+              <div className="flex items-center gap-6 mt-8 text-sm text-slate-400">
+                <span className="flex items-center gap-1.5"><CheckCircle size={16} className="text-emerald-400" /> 100% free</span>
+                <span className="flex items-center gap-1.5"><CheckCircle size={16} className="text-emerald-400" /> Personalized to your business</span>
+                <span className="flex items-center gap-1.5"><CheckCircle size={16} className="text-emerald-400" /> Ready in under 5 minutes</span>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
-              Find out exactly how AI can{' '}
-              <span className="text-blue-400">transform your business</span>
-              {' '}— in 5 minutes
-            </h1>
-            <p className="text-slate-300 text-xl leading-relaxed mb-10 max-w-2xl">
-              Answer a few questions about your business and get a personalized AI readiness report
-              with real use cases, estimated ROI, and a 90-day roadmap built specifically for your company.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/quiz"
-                className="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
-              >
-                Get My Free Report <ArrowRight size={20} />
-              </Link>
-              <Link
-                href="/use-cases"
-                className="inline-flex items-center justify-center gap-2 border border-slate-600 hover:border-slate-400 text-slate-300 hover:text-white font-semibold px-8 py-4 rounded-xl text-lg transition-colors"
-              >
-                Browse AI Use Cases
-              </Link>
-            </div>
-            <div className="flex items-center gap-6 mt-8 text-sm text-slate-400">
-              <span className="flex items-center gap-1.5"><CheckCircle size={16} className="text-emerald-400" /> 100% free</span>
-              <span className="flex items-center gap-1.5"><CheckCircle size={16} className="text-emerald-400" /> Personalized to your business</span>
-              <span className="flex items-center gap-1.5"><CheckCircle size={16} className="text-emerald-400" /> Ready in under 5 minutes</span>
+            {/* Right: Hero Image */}
+            <div className="flex items-center justify-center">
+              <Image
+                src="/hero.png"
+                alt="AI Adoption Framework — from governance to measurable ROI"
+                width={560}
+                height={560}
+                className="w-full max-w-lg rounded-2xl"
+                priority
+              />
             </div>
           </div>
         </div>
