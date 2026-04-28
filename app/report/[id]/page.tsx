@@ -327,11 +327,11 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
         <div className="bg-slate-900 text-white rounded-2xl p-10 text-center">
           <p className="text-blue-400 text-sm font-semibold uppercase tracking-widest mb-3">Your next step</p>
           <h2 className="text-2xl md:text-3xl font-bold mb-4">Let&apos;s build this together.</h2>
-          <p className="text-slate-300 mb-3 text-lg max-w-lg mx-auto">
-            This report is just the beginning. On a free 30-minute strategy call, we&apos;ll pick the highest-ROI opportunity from your report and show you exactly what implementation looks like.
+          <p className="text-slate-300 mb-3 text-lg max-w-xl mx-auto">
+            This report is a small snapshot of what&apos;s possible for your business. On a free 30-minute strategy call, we&apos;ll go deeper — surfacing the highest-impact opportunities specific to how you operate and showing you exactly what implementation looks like.
           </p>
           <p className="text-slate-400 text-sm mb-8 max-w-md mx-auto">
-            Most clients see their first AI win within 2 weeks of our first session.
+            Most clients walk away from that first call with a clear, prioritized action plan — and see their first AI win within 2 weeks.
           </p>
           <Link
             href={bookUrl}

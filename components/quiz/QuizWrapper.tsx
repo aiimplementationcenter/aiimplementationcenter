@@ -192,7 +192,7 @@ export default function QuizWrapper() {
       setFlash(null)
       setSelected(null)
       setStep((s) => s + 1)
-    }, 2200)
+    }, 3200)
   }
 
   function goBack() {
