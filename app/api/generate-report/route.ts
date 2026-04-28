@@ -215,9 +215,9 @@ ${searchResults || 'Not available.'}`
 
   getResend().emails.send({
     from: process.env.RESEND_FROM_EMAIL ?? 'info@aiimplementationcenter.com',
-    replyTo: process.env.RESEND_REPLY_TO,
     to: contactEmail,
     subject: `Your AI Readiness Report — ${resolvedCompanyName}`,
+    ...(process.env.RESEND_REPLY_TO ? { replyTo: process.env.RESEND_REPLY_TO } : {}),
     html: `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#F1F5F9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#F1F5F9;padding:40px 0;">
@@ -265,7 +265,13 @@ ${searchResults || 'Not available.'}`
 </td></tr>
 </table>
 </body></html>`,
-  }).catch(console.error)
+  }).then((result) => {
+    if ('error' in result && result.error) {
+      console.error('Resend error:', JSON.stringify(result.error))
+    } else {
+      console.log('Email sent, id:', (result as { data?: { id?: string } }).data?.id)
+    }
+  }).catch((err) => console.error('Resend exception:', err))
 
   return Response.json({ reportId })
 }
