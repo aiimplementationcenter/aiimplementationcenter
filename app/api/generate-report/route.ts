@@ -25,11 +25,11 @@ async function scrapeWebsite(url: string): Promise<string> {
     const jinaUrl = `https://r.jina.ai/${url}`
     const res = await fetch(jinaUrl, {
       headers: { Accept: 'text/plain' },
-      signal: AbortSignal.timeout(8000),
+      signal: AbortSignal.timeout(7000),
     })
     if (!res.ok) return ''
     const text = await res.text()
-    return text.slice(0, 4000)
+    return text.slice(0, 2500)
   } catch {
     return ''
   }
@@ -43,15 +43,15 @@ async function searchInternet(query: string): Promise<string> {
       body: JSON.stringify({
         api_key: process.env.TAVILY_API_KEY,
         query,
-        max_results: 4,
+        max_results: 2,
         include_answer: true,
       }),
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.timeout(5000),
     })
     if (!res.ok) return ''
     const data = await res.json()
     const snippets = (data.results ?? [])
-      .map((r: { title: string; content: string }) => `${r.title}: ${r.content}`)
+      .map((r: { title: string; content: string }) => `${r.title}: ${r.content.slice(0, 300)}`)
       .join('\n\n')
     return (data.answer ? `Summary: ${data.answer}\n\n` : '') + snippets
   } catch {
@@ -69,12 +69,7 @@ const REPORT_SCHEMA = `{
     {
       "trigger": <string — the single event that sets this flow in motion, e.g. "A potential customer calls after hours">,
       "title": <string — name of this automated workflow, specific to this company's business>,
-      "actions": [
-        <string — exactly what happens automatically, step by step. Be specific: name the channels, tools, and timing. e.g. "Call is logged instantly with caller ID, timestamp, and source — no manual entry needed">,
-        <string — next action in the cascade, e.g. "Automated text sent within 90 seconds: 'Thanks for calling [Company] — we'll call you back within the hour'">,
-        <string — another action, e.g. "Lead added to your CRM pipeline and flagged for callback — rep sees full context before they dial">,
-        <string — follow-up or escalation action, e.g. "If no callback made within 2 hours, a reminder fires and the lead enters a 4-message educational nurture sequence">
-      ],
+      "actions": [<string — one specific automated action, max 20 words>, <string>, <string>, <string>],
       "businessImpact": <string — 1 sentence on the concrete outcome this flow creates for this specific business>
     }
   ],
@@ -144,10 +139,12 @@ Return ONLY valid JSON matching this exact schema — no markdown, no extra text
 ${REPORT_SCHEMA}
 
 Schema rules:
-- maturityStage: 1=no AI at all, 2=aware/exploring, 3=using some tools, 4=actively integrating systems.
-- websiteObservations: 3 specific things visible on their site + how the orchestration system addresses each.
-- orchestrationFlows: 3–5 flows covering lead capture → nurture → conversion → delivery → post-service.
-- roadmap phase 1 must address their stated biggestImpact goal as a specific integration.`
+- maturityStage: 1=no AI, 2=exploring, 3=using some tools, 4=actively integrating.
+- websiteObservations: exactly 3 items.
+- orchestrationFlows: exactly 3 flows — keep each action under 20 words.
+- aiRoleOpportunities: exactly 2 roles.
+- roadmap: exactly 2 items per phase.
+- Be concise. Total output must fit in 2200 tokens.`
 
   const userPrompt = `COMPANY WEBSITE: ${websiteUrl}
 CONTACT: ${contactName} (${contactEmail}) — Phone: ${contactPhone ?? 'not provided'}
@@ -175,7 +172,7 @@ ${searchResults || 'Not available.'}`
         { role: 'user', content: userPrompt },
       ],
       temperature: 0.7,
-      max_tokens: 3000,
+      max_tokens: 2200,
     })
 
     const raw = completion.choices[0]?.message?.content ?? '{}'
