@@ -60,33 +60,39 @@ async function searchInternet(query: string): Promise<string> {
 }
 
 const REPORT_SCHEMA = `{
+  "companyName": <string — the real business name extracted from the website content>,
   "maturityStage": <number 1-4>,
   "maturityLabel": <string>,
-  "maturityDescription": <string — 1 sentence, encouraging, specific to this company>,
+  "maturityDescription": <string — 1 sentence, specific to this company, names a real competitive risk of waiting>,
   "websiteObservations": [<string>, <string>, <string>],
-  "useCases": [
+  "orchestrationFlows": [
     {
-      "title": <string — specific to this company, not a generic category>,
-      "description": <string — 2 sentences, referencing their actual business activities>,
-      "estimatedROI": <string — quantified where possible, e.g. "Saves ~6 hrs/week" or "30–40% faster response time">,
-      "firstStep": <string — a concrete next step framed as what we would implement together, starting with "Book a strategy call and we'll..." or "In your first session with us, we'll..." — never suggest DIY tools>
+      "trigger": <string — the single event that sets this flow in motion, e.g. "A potential customer calls after hours">,
+      "title": <string — name of this automated workflow, specific to this company's business>,
+      "actions": [
+        <string — exactly what happens automatically, step by step. Be specific: name the channels, tools, and timing. e.g. "Call is logged instantly with caller ID, timestamp, and source — no manual entry needed">,
+        <string — next action in the cascade, e.g. "Automated text sent within 90 seconds: 'Thanks for calling [Company] — we'll call you back within the hour'">,
+        <string — another action, e.g. "Lead added to your CRM pipeline and flagged for callback — rep sees full context before they dial">,
+        <string — follow-up or escalation action, e.g. "If no callback made within 2 hours, a reminder fires and the lead enters a 4-message educational nurture sequence">
+      ],
+      "businessImpact": <string — 1 sentence on the concrete outcome this flow creates for this specific business>
     }
   ],
   "aiRoleOpportunities": [
     {
-      "role": <string — the role title>,
-      "whatAICanDo": <string — 2-3 sentences on exactly how AI replaces or augments this role for this company>,
+      "role": <string — the role title, e.g. "After-Hours Receptionist" or "Follow-Up Coordinator">,
+      "whatAICanDo": <string — 2-3 sentences on exactly how AI handles this role for THIS company, referencing their actual services and customer journey>,
       "availability": "24/7/365 — no sick days, no turnover, no benefits",
-      "estimatedSavings": <string — estimated annual cost savings vs. hiring>
+      "estimatedSavings": <string — estimated annual cost savings vs. hiring a person>
     }
   ],
   "roadmap": {
-    "phase1": [<string tied to their 90-day goals>, <string>],
-    "phase2": [<string>, <string>],
-    "phase3": [<string>, <string>]
+    "phase1": [<string — specific integration or automation to build first, framed as "Connect X to Y so that Z">, <string>],
+    "phase2": [<string — deeper flow to add once phase 1 is running>, <string>],
+    "phase3": [<string — advanced orchestration or intelligence layer>, <string>]
   },
-  "totalRoleSavings": <string — total estimated annual savings across ALL roles combined, e.g. "$120,000–$180,000/year">,
-  "commandCenterNote": <string — 2 sentences, specific to this company's tools/challenges>
+  "totalRoleSavings": <string — total estimated annual savings across ALL AI roles combined, e.g. "$90,000–$130,000/year">,
+  "commandCenterNote": <string — 2 sentences naming the specific data sources this company has scattered (phone leads, CRM, email, invoicing, etc.) and what becomes possible when they're unified>
 }`
 
 function extractCompanyName(websiteUrl: string): string {
@@ -118,29 +124,30 @@ export async function POST(req: NextRequest) {
     searchInternet(`${companyName} OR site:${websiteUrl} business AI automation ROI`),
   ])
 
-  const systemPrompt = `You are an expert AI business strategist who builds highly personalized AI readiness reports for small and mid-market businesses.
+  const systemPrompt = `You are an expert AI business systems architect who builds highly personalized AI readiness reports for small and mid-market businesses.
 
-CRITICAL RULES — violating these makes the report worthless:
-1. NEVER produce generic use cases. Every use case must reference specific details from this company's website, industry, services, and the pain points they described.
-2. Infer the company's industry, size, and services from the website content — do not guess generically.
-3. The roadmap must be built around what they said would make the biggest difference in 90 days.
-4. AI role opportunities must explain exactly how AI replaces or augments roles for THIS company's context, not generically. Identify the 2–3 roles most relevant based on website and answers.
-5. Use a warm, direct, non-jargon tone. Write like a smart advisor, not a consultant.
-6. All observations must come from the actual website content provided — do not fabricate details.
-7. NEVER suggest DIY tools (ChatGPT, Zapier, Tidio, etc.) in firstStep. Every firstStep must frame the work as something WE implement together after a strategy call.
-8. maturityDescription must create urgency — name a specific competitive risk of waiting.
-9. commandCenterNote must name the specific data silos this company likely has based on their industry and tool count.
+Your job is NOT to list AI tools. Your job is to show how this business can operate as a single, unified, intelligent system — where every customer touchpoint, every lead, and every operational event triggers a cascade of coordinated actions automatically.
+
+CRITICAL RULES:
+1. Extract the real business name from the website content — never use the URL.
+2. orchestrationFlows are the heart of this report. Each flow must describe a CHAIN OF EVENTS — what happens automatically across multiple systems when a single trigger occurs. Think: a missed call doesn't just get logged — it triggers a text, a CRM entry, a rep notification, and a nurture sequence.
+3. Actions in each flow must be specific to this company's actual business model, customer journey, and the channels they use (calls, texts, emails, forms). Name the timing, the channel, and the outcome.
+4. Flows must feel like watching a machine work — not a list of features. Use specific language: "Within 90 seconds...", "If no response in 2 hours...", "After service is completed...".
+5. Include 3–5 orchestration flows covering the full customer lifecycle: lead capture, lead nurture, booking/conversion, service delivery, post-service follow-up, and repeat/referral generation.
+6. aiRoleOpportunities: 2–3 roles this specific company would typically hire — explain exactly how AI handles each role's actual tasks in their industry.
+7. roadmap items must be framed as integrations: "Connect X to Y so that Z happens automatically" — not generic steps.
+8. commandCenterNote must name specific data silos this company likely has and what unified visibility enables.
+9. maturityDescription must name a specific competitor advantage gained by those who move first in this industry.
+10. All content must be grounded in the actual website content — do not fabricate services or details not found there.
 
 Return ONLY valid JSON matching this exact schema — no markdown, no extra text:
 ${REPORT_SCHEMA}
 
 Schema rules:
-- maturityStage: based on leadResponse and biggestTimeDrain — 1=no AI, 2=exploring, 3=using some tools, 4=actively integrating.
-- websiteObservations: 3 specific things you noticed on their website + exactly how AI could improve each one.
-- useCases: 4–6 opportunities tied to their actual services, biggest time drain, and 90-day goal.
-- aiRoleOpportunities: 2–3 roles most relevant to this company — infer from website and industry.
-- roadmap: phase 1 must directly address their stated biggestImpact goal.
-- commandCenterNote: reference their specific industry and toolCount to explain the value of unification.`
+- maturityStage: 1=no AI at all, 2=aware/exploring, 3=using some tools, 4=actively integrating systems.
+- websiteObservations: 3 specific things visible on their site + how the orchestration system addresses each.
+- orchestrationFlows: 3–5 flows covering lead capture → nurture → conversion → delivery → post-service.
+- roadmap phase 1 must address their stated biggestImpact goal as a specific integration.`
 
   const userPrompt = `COMPANY WEBSITE: ${websiteUrl}
 CONTACT: ${contactName} (${contactEmail}) — Phone: ${contactPhone ?? 'not provided'}
@@ -180,11 +187,13 @@ ${searchResults || 'Not available.'}`
     return Response.json({ error: 'Failed to generate report', detail: String(err) }, { status: 500 })
   }
 
+  const resolvedCompanyName = (reportContent.companyName as string | undefined) || companyName
+
   // Save to Supabase
   const { data: lead, error: dbError } = await supabase
     .from('leads')
     .insert({
-      company_name: companyName,
+      company_name: resolvedCompanyName,
       website_url: websiteUrl,
       contact_name: contactName,
       contact_email: contactEmail,
@@ -211,7 +220,7 @@ ${searchResults || 'Not available.'}`
     from: process.env.RESEND_FROM_EMAIL ?? 'info@aiimplementationcenter.com',
     replyTo: process.env.RESEND_REPLY_TO,
     to: contactEmail,
-    subject: `Your AI Readiness Report — ${companyName}`,
+    subject: `Your AI Readiness Report — ${resolvedCompanyName}`,
     html: `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#F1F5F9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#F1F5F9;padding:40px 0;">
@@ -224,7 +233,7 @@ ${searchResults || 'Not available.'}`
   <tr><td style="padding:40px;">
     <p style="margin:0 0 16px;color:#0F172A;font-size:16px;font-weight:600;">Hi ${contactName},</p>
     <p style="margin:0 0 28px;color:#475569;font-size:15px;line-height:1.7;">
-      Your personalized AI readiness report for <strong style="color:#0F172A;">${companyName}</strong> is ready.
+      Your personalized AI readiness report for <strong style="color:#0F172A;">${resolvedCompanyName}</strong> is ready.
       Our AI analyzed your website and industry to surface real use cases, ROI estimates, and a 90-day roadmap built specifically for your business.
     </p>
     <table cellpadding="0" cellspacing="0" style="margin:0 auto 36px;">

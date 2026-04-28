@@ -34,12 +34,20 @@ const MATURITY_STAGES = [
   },
 ]
 
+interface OrchestrationFlow {
+  trigger: string
+  title: string
+  actions: string[]
+  businessImpact: string
+}
+
 interface ReportContent {
+  companyName?: string
   maturityStage: number
   maturityLabel: string
   maturityDescription: string
   websiteObservations: string[]
-  useCases: { title: string; description: string; estimatedROI: string; firstStep: string }[]
+  orchestrationFlows: OrchestrationFlow[]
   aiRoleOpportunities: { role: string; whatAICanDo: string; availability: string; estimatedSavings: string }[]
   roadmap: { phase1: string[]; phase2: string[]; phase3: string[] }
   totalRoleSavings?: string
@@ -140,28 +148,50 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
           </ul>
         </div>
 
-        {/* Use Cases */}
+        {/* Orchestration Flows */}
         <div className="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
           <h2 className="text-xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-            <TrendingUp size={22} className="text-emerald-500" /> Your Top AI Opportunities
+            <TrendingUp size={22} className="text-emerald-500" /> How Your Business Runs as One System
           </h2>
           <p className="text-slate-500 text-sm mb-6">
-            Ranked by relevance to your industry, challenges, and goals.
+            These are the automated workflows we build for you — each triggered by a single event, each setting off a chain of coordinated actions across your business.
           </p>
-          <div className="space-y-5">
-            {(report.useCases ?? []).map((uc, i) => (
-              <div key={i} className="border border-slate-100 rounded-xl p-6 hover:border-blue-100 transition-colors">
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <h3 className="font-bold text-slate-900 text-lg">{uc.title}</h3>
-                  <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full">
-                    <Clock size={11} /> {uc.estimatedROI}
-                  </span>
+          <div className="space-y-6">
+            {(report.orchestrationFlows ?? []).map((flow, i) => (
+              <div key={i} className="border border-slate-200 rounded-xl overflow-hidden">
+                {/* Trigger header */}
+                <div className="bg-slate-900 px-5 py-3.5 flex items-center gap-3">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest shrink-0">Trigger</span>
+                  <span className="text-white font-semibold text-sm">{flow.trigger}</span>
                 </div>
-                <p className="text-slate-600 leading-relaxed mb-4">{uc.description}</p>
-                <div className="bg-blue-50 rounded-lg px-4 py-3">
-                  <p className="text-blue-800 text-sm font-medium">
-                    <span className="font-bold">First step:</span> {uc.firstStep}
-                  </p>
+
+                <div className="p-5">
+                  <h3 className="font-bold text-slate-900 text-base mb-4">{flow.title}</h3>
+
+                  {/* Action chain */}
+                  <div className="space-y-0">
+                    {(flow.actions ?? []).map((action, j) => (
+                      <div key={j} className="flex gap-3">
+                        <div className="flex flex-col items-center">
+                          <div className="w-6 h-6 rounded-full bg-blue-500 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                            {j + 1}
+                          </div>
+                          {j < (flow.actions.length - 1) && (
+                            <div className="w-0.5 bg-blue-200 flex-1 my-1" />
+                          )}
+                        </div>
+                        <div className={`pb-4 ${j < flow.actions.length - 1 ? '' : 'pb-0'}`}>
+                          <p className="text-slate-700 text-sm leading-relaxed">{action}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Business impact */}
+                  <div className="mt-4 bg-emerald-50 border border-emerald-100 rounded-lg px-4 py-3 flex items-start gap-2">
+                    <CheckCircle size={15} className="text-emerald-600 mt-0.5 shrink-0" />
+                    <p className="text-emerald-800 text-sm font-medium leading-relaxed">{flow.businessImpact}</p>
+                  </div>
                 </div>
               </div>
             ))}
