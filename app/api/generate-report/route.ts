@@ -89,75 +89,71 @@ const REPORT_SCHEMA = `{
   "commandCenterNote": <string — 2 sentences, specific to this company's tools/challenges>
 }`
 
+function extractCompanyName(websiteUrl: string): string {
+  try {
+    const hostname = new URL(websiteUrl).hostname.replace(/^www\./, '')
+    const domain = hostname.split('.')[0]
+    return domain
+      .replace(/[-_]/g, ' ')
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      .split(' ')
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ')
+  } catch {
+    return 'Your Company'
+  }
+}
+
 export async function POST(req: NextRequest) {
   const quizData = await req.json()
   const {
-    companyName, industry, companySize, websiteUrl,
-    contactName, contactEmail, aiKnowledge, aiUsageStatus,
-    aiTools, challenges, goals, timeline,
-    goals90Day, aiRoles, customRole,
+    contactName, contactEmail, contactPhone, websiteUrl,
+    biggestTimeDrain, toolCount, leadResponse, biggestImpact, timeline,
   } = quizData
 
-  // Run scraping and search in parallel — search includes company name for specificity
+  const companyName = extractCompanyName(websiteUrl)
+
   const [websiteContent, searchResults] = await Promise.all([
     scrapeWebsite(websiteUrl),
-    searchInternet(`"${companyName}" OR ${industry} business AI automation ROI case study`),
+    searchInternet(`${companyName} OR site:${websiteUrl} business AI automation ROI`),
   ])
-
-  const allRoles = [...(aiRoles ?? []), ...(customRole ? [customRole] : [])].join(', ')
 
   const systemPrompt = `You are an expert AI business strategist who builds highly personalized AI readiness reports for small and mid-market businesses.
 
 CRITICAL RULES — violating these makes the report worthless:
-1. NEVER produce generic use cases. Every use case must reference specific details from this company's website, industry, size, challenges, and stated goals.
-2. DO NOT suggest use cases from a pre-built list. Invent use cases that are specific to what THIS company actually does based on the website content.
-3. The roadmap phases must directly address the company's stated 90-day goals — not generic AI adoption steps.
-4. AI role opportunities must explain exactly how AI replaces the role for THIS company's context, not generically.
+1. NEVER produce generic use cases. Every use case must reference specific details from this company's website, industry, services, and the pain points they described.
+2. Infer the company's industry, size, and services from the website content — do not guess generically.
+3. The roadmap must be built around what they said would make the biggest difference in 90 days.
+4. AI role opportunities must explain exactly how AI replaces or augments roles for THIS company's context, not generically. Identify the 2–3 roles most relevant based on website and answers.
 5. Use a warm, direct, non-jargon tone. Write like a smart advisor, not a consultant.
 6. All observations must come from the actual website content provided — do not fabricate details.
 7. NEVER suggest DIY tools (ChatGPT, Zapier, Tidio, etc.) in firstStep. Every firstStep must frame the work as something WE implement together after a strategy call.
-8. maturityDescription must create urgency — name a specific competitive risk of waiting, not just encouragement.
+8. maturityDescription must create urgency — name a specific competitive risk of waiting.
+9. commandCenterNote must name the specific data silos this company likely has based on their industry and tool count.
 
 Return ONLY valid JSON matching this exact schema — no markdown, no extra text:
 ${REPORT_SCHEMA}
 
 Schema rules:
-- maturityStage: 1=never used AI, 2=heard of it/exploring, 3=using tools regularly, 4=integrating AI into systems.
+- maturityStage: based on leadResponse and biggestTimeDrain — 1=no AI, 2=exploring, 3=using some tools, 4=actively integrating.
 - websiteObservations: 3 specific things you noticed on their website + exactly how AI could improve each one.
-- useCases: 4-6 opportunities, each tied to their actual services/products, challenges, and 90-day goals.
-- aiRoleOpportunities: for each role they mentioned, explain how AI handles it for this specific company.
-- roadmap: phase 1 items must map directly to their 90-day goals.
-- commandCenterNote: name 2-3 of their specific software/data silos that the Command Center would unify.`
+- useCases: 4–6 opportunities tied to their actual services, biggest time drain, and 90-day goal.
+- aiRoleOpportunities: 2–3 roles most relevant to this company — infer from website and industry.
+- roadmap: phase 1 must directly address their stated biggestImpact goal.
+- commandCenterNote: reference their specific industry and toolCount to explain the value of unification.`
 
-  const userPrompt = `COMPANY PROFILE:
-Name: ${companyName}
-Industry: ${industry}
-Size: ${companySize}
-Website: ${websiteUrl}
+  const userPrompt = `COMPANY WEBSITE: ${websiteUrl}
+CONTACT: ${contactName} (${contactEmail}) — Phone: ${contactPhone ?? 'not provided'}
 
-CONTACT: ${contactName} (${contactEmail})
+WHAT THEY TOLD US:
+- Biggest time drain: ${biggestTimeDrain}
+- Number of tools/software they run: ${toolCount}
+- Lead response speed: ${leadResponse}
+- What would make the biggest 90-day impact: ${biggestImpact}
+- Timeline: ${timeline}
 
-AI READINESS:
-- Knowledge level: ${aiKnowledge}
-- Currently using AI: ${aiUsageStatus}
-- Tools in use: ${aiTools?.join(', ') || 'None yet'}
-
-CHALLENGES (most important — prioritize use cases around these):
-${challenges?.join('\n')}
-
-HIGH-LEVEL GOALS:
-${goals?.join('\n')}
-
-TIMELINE: ${timeline}
-
-90-DAY SPECIFIC GOALS (build the roadmap around these):
-${goals90Day || 'Not specified'}
-
-ROLES THEY WANT AI TO REPLACE OR AUGMENT:
-${allRoles || 'None selected'}
-
-WEBSITE CONTENT (use this to make observations and use cases specific):
-${websiteContent || 'Could not retrieve — rely on industry and stated goals.'}
+WEBSITE CONTENT (use this to make everything specific — infer company name, industry, services, size):
+${websiteContent || 'Could not retrieve — rely on the URL and stated answers.'}
 
 INDUSTRY RESEARCH:
 ${searchResults || 'Not available.'}`
@@ -189,8 +185,6 @@ ${searchResults || 'Not available.'}`
     .from('leads')
     .insert({
       company_name: companyName,
-      industry,
-      company_size: companySize,
       website_url: websiteUrl,
       contact_name: contactName,
       contact_email: contactEmail,
