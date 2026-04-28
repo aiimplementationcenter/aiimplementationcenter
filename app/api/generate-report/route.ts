@@ -214,7 +214,7 @@ ${searchResults || 'Not available.'}`
     : `${process.env.NEXT_PUBLIC_COMPANY_URL ?? 'https://aiimplementationcenter.com'}/book`
 
   getResend().emails.send({
-    from: process.env.RESEND_FROM_EMAIL ?? 'info@aiimplementationcenter.com',
+    from: process.env.RESEND_FROM_EMAIL ?? 'AI Implementation Center <info@aiimplementationcenter.com>',
     to: contactEmail,
     subject: `Your AI Readiness Report — ${resolvedCompanyName}`,
     ...(process.env.RESEND_REPLY_TO ? { replyTo: process.env.RESEND_REPLY_TO } : {}),
