@@ -5,7 +5,7 @@ const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME ?? 'AI Implementation C
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-white/[0.08] bg-[#08090a] text-slate-400">
+    <footer className="mt-auto border-t border-[#dfd1bf] bg-[#fffaf1] text-[#6b5c50]">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div>
@@ -19,29 +19,29 @@ export default function Footer() {
                 unoptimized
               />
             </Link>
-            <p className="max-w-sm text-sm leading-6">
-              We build AI-assisted business systems with workflows, rules, handoffs, and reporting. AI is the tool inside the process, not the whole solution.
+            <p className="max-w-md text-sm leading-6">
+              AI Implementation Center installs practical AI-powered follow-up and office systems for local businesses and professional offices. We connect the calls, forms, quotes, appointments, reviews, CRM, and staff handoffs that keep work moving.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
-              <p className="mb-3 text-sm font-semibold text-white">Company</p>
+              <p className="mb-3 text-sm font-bold text-[#201713]">Company</p>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/use-cases" className="transition-colors hover:text-white">Systems</Link></li>
-                <li><Link href="/quiz" className="transition-colors hover:text-white">AI Readiness</Link></li>
-                <li><Link href="/book" className="transition-colors hover:text-white">Book a Call</Link></li>
+                <li><Link href="/use-cases" className="transition-colors hover:text-[#201713]">What We Build</Link></li>
+                <li><Link href="/quiz" className="transition-colors hover:text-[#201713]">Find Your First System</Link></li>
+                <li><Link href="/book" className="transition-colors hover:text-[#201713]">Book a Call</Link></li>
               </ul>
             </div>
             <div>
-              <p className="mb-3 text-sm font-semibold text-white">Start</p>
+              <p className="mb-3 text-sm font-bold text-[#201713]">Start</p>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/intake" className="transition-colors hover:text-white">Request AI Quick Win</Link></li>
-                <li><Link href="/book" className="transition-colors hover:text-white">Strategy Call</Link></li>
+                <li><Link href="/intake" className="transition-colors hover:text-[#201713]">Request AI Quick Win</Link></li>
+                <li><Link href="/book" className="transition-colors hover:text-[#201713]">Strategy Call</Link></li>
               </ul>
             </div>
           </div>
         </div>
-        <div className="mt-10 border-t border-white/[0.08] pt-6 text-center text-sm">
+        <div className="mt-10 border-t border-[#dfd1bf] pt-6 text-center text-sm">
           © {new Date().getFullYear()} {companyName}. All rights reserved.
         </div>
       </div>
