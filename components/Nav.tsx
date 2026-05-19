@@ -13,7 +13,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
 
   return (
-    <nav className="border-b border-[#dfd1bf] bg-[#fffaf1] text-[#201713]">
+    <nav className="border-b border-[#b8dce2] bg-[#f8feff] text-[#09242f]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-24 items-center justify-between">
           <Link href="/" className="flex items-center">
@@ -28,22 +28,22 @@ export default function Nav() {
           </Link>
 
           <div className="hidden items-center gap-7 md:flex">
-            <Link href="/#quick-fixes" className="text-sm font-semibold text-[#5f5147] transition-colors hover:text-[#201713]">
+            <Link href="/#quick-fixes" className="text-sm font-bold text-[#365661] transition-colors hover:text-[#071f2b]">
               Quick Fixes
             </Link>
-            <Link href="/#quick-fix-form" className="text-sm font-semibold text-[#5f5147] transition-colors hover:text-[#201713]">
+            <Link href="/#quick-fix-form" className="text-sm font-bold text-[#365661] transition-colors hover:text-[#071f2b]">
               Send a Pain Point
             </Link>
-            <Link href="/book" className="text-sm font-semibold text-[#5f5147] transition-colors hover:text-[#201713]">
+            <Link href="/book" className="text-sm font-bold text-[#365661] transition-colors hover:text-[#071f2b]">
               Book a Call
             </Link>
-            <a href={SMS_LINK} className="rounded-xl bg-[#b46a32] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#965322]">
+            <a href={SMS_LINK} className="rounded-xl bg-[#0aaec0] px-5 py-2.5 text-sm font-black text-white shadow-sm transition-colors hover:bg-[#087f90]">
               Text 816-509-5368
             </a>
           </div>
 
           <button
-            className="text-[#5f5147] hover:text-[#201713] md:hidden"
+            className="text-[#365661] hover:text-[#071f2b] md:hidden"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
@@ -53,16 +53,16 @@ export default function Nav() {
 
         {open && (
           <div className="flex flex-col gap-3 pb-5 md:hidden">
-            <Link href="/#quick-fixes" className="py-2 text-sm font-semibold text-[#5f5147] hover:text-[#201713]" onClick={() => setOpen(false)}>
+            <Link href="/#quick-fixes" className="py-2 text-sm font-bold text-[#365661] hover:text-[#071f2b]" onClick={() => setOpen(false)}>
               Quick Fixes
             </Link>
-            <Link href="/#quick-fix-form" className="py-2 text-sm font-semibold text-[#5f5147] hover:text-[#201713]" onClick={() => setOpen(false)}>
+            <Link href="/#quick-fix-form" className="py-2 text-sm font-bold text-[#365661] hover:text-[#071f2b]" onClick={() => setOpen(false)}>
               Send a Pain Point
             </Link>
-            <Link href="/book" className="py-2 text-sm font-semibold text-[#5f5147] hover:text-[#201713]" onClick={() => setOpen(false)}>
+            <Link href="/book" className="py-2 text-sm font-bold text-[#365661] hover:text-[#071f2b]" onClick={() => setOpen(false)}>
               Book a Call
             </Link>
-            <a href={SMS_LINK} className="rounded-xl bg-[#b46a32] px-5 py-3 text-center text-sm font-bold text-white transition-colors hover:bg-[#965322]" onClick={() => setOpen(false)}>
+            <a href={SMS_LINK} className="rounded-xl bg-[#0aaec0] px-5 py-3 text-center text-sm font-black text-white transition-colors hover:bg-[#087f90]" onClick={() => setOpen(false)}>
               Text 816-509-5368
             </a>
           </div>

@@ -1,12 +1,115 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F8FAFC;
-  --foreground: #0F172A;
+  --background: #EEF7F8;
+  --foreground: #09242F;
+  --brand-navy: #071F2B;
+  --brand-teal: #0AAEC0;
+  --brand-cyan: #7FF7FF;
+  --brand-red: #A90F16;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.hf-stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.hf-stage::before {
+  content: "";
+  position: absolute;
+  inset: -45% -25% auto;
+  height: 70%;
+  background: radial-gradient(circle, rgba(127, 247, 255, 0.24), transparent 62%);
+  animation: hf-drift 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.hf-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.08) 42%, transparent 58%);
+  transform: translateX(-120%);
+  animation: hf-scan 5.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.hf-line {
+  position: absolute;
+  left: 21px;
+  top: 22px;
+  bottom: 22px;
+  width: 2px;
+  background: linear-gradient(#7ff7ff, rgba(127, 247, 255, 0.12));
+  opacity: 0.75;
+}
+
+.hf-frame {
+  animation: hf-frame-in 650ms ease both;
+}
+
+.hf-dot {
+  box-shadow: 0 0 0 0 rgba(127, 247, 255, 0.38);
+  animation: hf-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes hf-frame-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hf-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(127, 247, 255, 0.34);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(127, 247, 255, 0);
+  }
+}
+
+@keyframes hf-scan {
+  0%, 35% {
+    transform: translateX(-120%);
+  }
+  70%, 100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes hf-drift {
+  from {
+    transform: translate3d(-4%, -2%, 0) rotate(-2deg);
+  }
+  to {
+    transform: translate3d(6%, 4%, 0) rotate(3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hf-stage::before,
+  .hf-stage::after,
+  .hf-frame,
+  .hf-dot {
+    animation: none;
+  }
 }

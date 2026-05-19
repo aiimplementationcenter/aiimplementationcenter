@@ -12,8 +12,8 @@ const inter = Inter({
 const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME ?? "AI Implementation Center";
 
 export const metadata: Metadata = {
-  title: `${companyName} — Pick a Pain, Get a Quick Fix`,
-  description: "AI Implementation Center helps local businesses pick one painful follow-up, lead response, quote, review, scheduling, or office workflow problem and installs the first AI-powered quick fix.",
+  title: `${companyName} — No-Upfront-Cost Quick Fixes`,
+  description: "Pick one business pain. AI Implementation Center shows the first quick fix at no upfront cost so local businesses can see whether it can save time, recover leads, or protect revenue before spending money on a larger system.",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#f6f1e8] text-[#201713]">
+      <body className="min-h-full flex flex-col bg-[#eef7f8] text-[#09242f]">
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
