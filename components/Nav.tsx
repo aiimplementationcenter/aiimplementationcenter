@@ -5,6 +5,10 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
+const TEXT_NUMBER_LINK = '+18165095368'
+const TEXT_MESSAGE = 'I am interested in one of your quick fixes to see if it will help my business.'
+const SMS_LINK = `sms:${TEXT_NUMBER_LINK}?&body=${encodeURIComponent(TEXT_MESSAGE)}`
+
 export default function Nav() {
   const [open, setOpen] = useState(false)
 
@@ -24,18 +28,18 @@ export default function Nav() {
           </Link>
 
           <div className="hidden items-center gap-7 md:flex">
-            <Link href="/use-cases" className="text-sm font-semibold text-[#5f5147] transition-colors hover:text-[#201713]">
-              What We Build
+            <Link href="/#quick-fixes" className="text-sm font-semibold text-[#5f5147] transition-colors hover:text-[#201713]">
+              Quick Fixes
             </Link>
-            <Link href="/quiz" className="text-sm font-semibold text-[#5f5147] transition-colors hover:text-[#201713]">
-              Find Your First System
+            <Link href="/#quick-fix-form" className="text-sm font-semibold text-[#5f5147] transition-colors hover:text-[#201713]">
+              Send a Pain Point
             </Link>
             <Link href="/book" className="text-sm font-semibold text-[#5f5147] transition-colors hover:text-[#201713]">
               Book a Call
             </Link>
-            <Link href="/intake" className="rounded-xl bg-[#b46a32] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#965322]">
-              Request Quick Win
-            </Link>
+            <a href={SMS_LINK} className="rounded-xl bg-[#b46a32] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#965322]">
+              Text 816-509-5368
+            </a>
           </div>
 
           <button
@@ -49,18 +53,18 @@ export default function Nav() {
 
         {open && (
           <div className="flex flex-col gap-3 pb-5 md:hidden">
-            <Link href="/use-cases" className="py-2 text-sm font-semibold text-[#5f5147] hover:text-[#201713]" onClick={() => setOpen(false)}>
-              What We Build
+            <Link href="/#quick-fixes" className="py-2 text-sm font-semibold text-[#5f5147] hover:text-[#201713]" onClick={() => setOpen(false)}>
+              Quick Fixes
             </Link>
-            <Link href="/quiz" className="py-2 text-sm font-semibold text-[#5f5147] hover:text-[#201713]" onClick={() => setOpen(false)}>
-              Find Your First System
+            <Link href="/#quick-fix-form" className="py-2 text-sm font-semibold text-[#5f5147] hover:text-[#201713]" onClick={() => setOpen(false)}>
+              Send a Pain Point
             </Link>
             <Link href="/book" className="py-2 text-sm font-semibold text-[#5f5147] hover:text-[#201713]" onClick={() => setOpen(false)}>
               Book a Call
             </Link>
-            <Link href="/intake" className="rounded-xl bg-[#b46a32] px-5 py-3 text-center text-sm font-bold text-white transition-colors hover:bg-[#965322]" onClick={() => setOpen(false)}>
-              Request Quick Win
-            </Link>
+            <a href={SMS_LINK} className="rounded-xl bg-[#b46a32] px-5 py-3 text-center text-sm font-bold text-white transition-colors hover:bg-[#965322]" onClick={() => setOpen(false)}>
+              Text 816-509-5368
+            </a>
           </div>
         )}
       </div>

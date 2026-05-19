@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME ?? 'AI Implementation Center'
+const textMessage = 'I am interested in one of your quick fixes to see if it will help my business.'
+const smsLink = `sms:+18165095368?&body=${encodeURIComponent(textMessage)}`
 
 export default function Footer() {
   return (
@@ -20,23 +22,23 @@ export default function Footer() {
               />
             </Link>
             <p className="max-w-md text-sm leading-6">
-              AI Implementation Center installs practical AI-powered follow-up and office systems for local businesses and professional offices. We connect the calls, forms, quotes, appointments, reviews, CRM, and staff handoffs that keep work moving.
+              AI Implementation Center helps local businesses pick one painful follow-up, lead response, quote, review, scheduling, or office workflow problem and installs the first quick fix before talking about a larger buildout.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
-              <p className="mb-3 text-sm font-bold text-[#201713]">Company</p>
+              <p className="mb-3 text-sm font-bold text-[#201713]">Quick fixes</p>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/use-cases" className="transition-colors hover:text-[#201713]">What We Build</Link></li>
-                <li><Link href="/quiz" className="transition-colors hover:text-[#201713]">Find Your First System</Link></li>
+                <li><Link href="/#quick-fixes" className="transition-colors hover:text-[#201713]">View Pain Points</Link></li>
+                <li><Link href="/#quick-fix-form" className="transition-colors hover:text-[#201713]">Email a Pain Point</Link></li>
                 <li><Link href="/book" className="transition-colors hover:text-[#201713]">Book a Call</Link></li>
               </ul>
             </div>
             <div>
-              <p className="mb-3 text-sm font-bold text-[#201713]">Start</p>
+              <p className="mb-3 text-sm font-bold text-[#201713]">Text us</p>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/intake" className="transition-colors hover:text-[#201713]">Request AI Quick Win</Link></li>
-                <li><Link href="/book" className="transition-colors hover:text-[#201713]">Strategy Call</Link></li>
+                <li><a href={smsLink} className="font-bold text-[#b46a32] transition-colors hover:text-[#965322]">816-509-5368</a></li>
+                <li className="max-w-52">Ask which quick fix can help your business first.</li>
               </ul>
             </div>
           </div>
