@@ -12,8 +12,8 @@ const inter = Inter({
 const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME ?? "AI Implementation Center";
 
 export const metadata: Metadata = {
-  title: `${companyName} — AI Readiness for Your Business`,
-  description: "Discover exactly how AI can transform your business. Take our free AI Readiness Quiz and get a personalized report in minutes.",
+  title: `${companyName} — AI Business Systems That Fix Follow-Up`,
+  description: "AI Implementation Center builds AI-assisted lead response, follow-up, review, and operations systems with workflows, rules, handoffs, and reporting.",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
+      <body className="min-h-full flex flex-col bg-[#08090a] text-white">
         <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
