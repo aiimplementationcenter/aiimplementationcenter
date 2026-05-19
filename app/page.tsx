@@ -19,6 +19,10 @@ const TEXT_MESSAGE = 'I am interested in one of your quick fixes to see if it wi
 const SMS_LINK = `sms:${TEXT_NUMBER_LINK}?&body=${encodeURIComponent(TEXT_MESSAGE)}`
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mvzyzark'
 
+function smsLinkForPain(pain: string) {
+  return `sms:${TEXT_NUMBER_LINK}?&body=${encodeURIComponent(`I am interested in your ${pain} quick fix to see if it will help my business.`)}`
+}
+
 const PAIN_POINTS = [
   {
     icon: PhoneCall,
@@ -111,11 +115,12 @@ function ProcessVisual() {
 export default function HomePage() {
   return (
     <div className="bg-[#eef7f8] text-[#09242f]">
-      <section className="relative overflow-hidden border-b border-[#b8dce2] bg-[radial-gradient(circle_at_top_left,#d9fbff_0,#f8feff_34%,#eef7f8_72%)]">
+      <section className="relative overflow-hidden border-b border-[#8fcfd8] bg-[#ffffff]">
         <div className="absolute inset-x-0 top-0 h-1.5 bg-[#a90f16]" />
+        <div className="absolute right-0 top-0 hidden h-full w-[42%] bg-[#e0fbff] lg:block" />
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:py-24">
-          <div className="flex flex-col justify-center">
-            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#9fdbe2] bg-white px-4 py-2 text-sm font-bold text-[#0d5263] shadow-sm">
+          <div className="relative flex flex-col justify-center">
+            <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#0aaec0]/35 bg-[#e0fbff] px-4 py-2 text-sm font-black text-[#071f2b] shadow-sm">
               <Wrench size={15} />
               No upfront cost to look at one quick fix
             </div>
@@ -124,13 +129,13 @@ export default function HomePage() {
               Pick one problem. Let us show you the first fix.
             </h1>
 
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#365661] sm:text-xl">
+            <p className="mt-6 max-w-2xl text-xl leading-9 text-[#183641] sm:text-2xl sm:leading-10">
               Missed calls. Slow lead response. Quotes that go quiet. Review requests. No-shows. Repeating office work. Send us the pain point. We will show you the first workflow to fix before you spend money on a bigger system.
             </p>
 
-            <div className="mt-7 rounded-2xl border border-[#b8dce2] bg-white p-5 shadow-sm">
-              <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#a90f16]">Plain version</p>
-              <p className="mt-2 text-lg leading-8 text-[#183641]">
+            <div className="mt-7 rounded-2xl border border-[#071f2b] bg-[#071f2b] p-5 shadow-xl shadow-[#071f2b]/15">
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#7ff7ff]">Plain version</p>
+              <p className="mt-2 text-lg leading-8 text-white">
                 You choose one leak in the business. We map the text, email, CRM, calendar, staff alert, and follow-up sequence that should handle it. If that quick fix looks like it can save time or bring back revenue, we can install it.
               </p>
             </div>
@@ -150,7 +155,7 @@ export default function HomePage() {
               </a>
             </div>
 
-            <p className="mt-4 text-sm leading-6 text-[#55727a]">
+            <p className="mt-4 text-sm leading-6 text-[#183641]">
               Text message is prefilled: “{TEXT_MESSAGE}”
             </p>
           </div>
@@ -184,6 +189,7 @@ export default function HomePage() {
           <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {PAIN_POINTS.map((item, index) => {
               const Icon = item.icon
+              const painSmsLink = smsLinkForPain(item.title.toLowerCase())
               return (
                 <div key={item.title} className="group rounded-2xl border border-[#b8dce2] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-[#0aaec0] hover:shadow-xl hover:shadow-[#0aaec0]/10">
                   <div className="flex items-start justify-between gap-4">
@@ -195,7 +201,7 @@ export default function HomePage() {
                   <h3 className="mt-5 text-xl font-black tracking-[-0.03em] text-[#071f2b]">{item.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-[#48646c]"><span className="font-black text-[#071f2b]">Pain:</span> {item.pain}</p>
                   <p className="mt-3 text-sm leading-6 text-[#48646c]"><span className="font-black text-[#071f2b]">First fix:</span> {item.fix}</p>
-                  <a href={SMS_LINK} className="mt-5 inline-flex text-sm font-black text-[#0d5263] hover:text-[#a90f16]">
+                  <a href={painSmsLink} className="mt-5 inline-flex text-sm font-black text-[#0d5263] hover:text-[#a90f16]">
                     Text us about #{index + 1}
                   </a>
                 </div>
