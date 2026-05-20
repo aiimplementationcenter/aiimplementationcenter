@@ -12,8 +12,8 @@ const inter = Inter({
 const companyName = process.env.NEXT_PUBLIC_COMPANY_NAME ?? "AI Implementation Center";
 
 export const metadata: Metadata = {
-  title: `${companyName} — AI Follow-Up Systems for Local Businesses`,
-  description: "AI Implementation Center installs AI-powered follow-up systems that help local businesses stop losing calls, leads, quotes, reviews, appointments, and revenue. Pick one pain point and see the first quick fix at no upfront cost.",
+  title: `${companyName} — AI-Integrated Business Systems`,
+  description: "AI Implementation Center helps companies implement AI-integrated systems inside their current workflows to increase revenue, efficiency, and productivity. Pick one pain point and see the first quick fix at no upfront cost.",
 };
 
 export default function RootLayout({

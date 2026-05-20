@@ -29,7 +29,7 @@ export default function Nav() {
 
           <div className="hidden items-center gap-7 md:flex">
             <Link href="/#quick-fixes" className="text-sm font-bold text-[#365661] transition-colors hover:text-[#071f2b]">
-              Quick Fixes
+              Systems
             </Link>
             <Link href="/#quick-fix-form" className="text-sm font-bold text-[#365661] transition-colors hover:text-[#071f2b]">
               Send a Pain Point
@@ -54,7 +54,7 @@ export default function Nav() {
         {open && (
           <div className="flex flex-col gap-3 pb-5 md:hidden">
             <Link href="/#quick-fixes" className="py-2 text-sm font-bold text-[#365661] hover:text-[#071f2b]" onClick={() => setOpen(false)}>
-              Quick Fixes
+              Systems
             </Link>
             <Link href="/#quick-fix-form" className="py-2 text-sm font-bold text-[#365661] hover:text-[#071f2b]" onClick={() => setOpen(false)}>
               Send a Pain Point

@@ -63,16 +63,16 @@ const PAIN_POINTS = [
 ]
 
 const PROCESS_STEPS = [
-  ['Pick one pain', 'You tell us which leak you want fixed first.'],
-  ['We map the quick fix', 'We lay out the trigger, message, follow-up, alert, and handoff.'],
-  ['You see the path', 'You can tell whether the fix is worth using before you spend money on it.'],
-  ['Then we build if it fits', 'If the quick fix makes sense, we install and manage the system.'],
+  ['Pick one workflow', 'You tell us where work slows down, leads leak out, or staff keep doing the same thing by hand.'],
+  ['We map the system', 'We lay out the trigger, AI role, rules, message, data, alert, and human handoff.'],
+  ['You see the first fix', 'You can tell whether the system can protect revenue or save time before you spend money on it.'],
+  ['Then we build deeper', 'If the quick fix makes sense, we install the broader workflow and manage the moving parts.'],
 ]
 
 const LOCAL_BUSINESSES = [
-  'Home services: HVAC, plumbing, roofing, pest control, remodeling',
-  'Local offices: dental, med spas, clinics, law firms, insurance',
-  'Sales teams: real estate, contractors, agencies, service companies',
+  'Lead and sales systems: forms, calls, quotes, pipeline, follow-up, reactivation',
+  'Office systems: intake, scheduling, reminders, summaries, handoffs, reporting',
+  'Marketing systems: reviews, content support, SEO workflows, social follow-up',
 ]
 
 function ProcessVisual() {
@@ -80,8 +80,8 @@ function ProcessVisual() {
     <div className="hf-stage rounded-[30px] border border-[#b8dce2] bg-[#071f2b] p-5 shadow-2xl shadow-[#00bcd4]/20 sm:p-6">
       <div className="mb-5 flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6ff8ff]">Quick fix flow</p>
-          <h2 className="mt-2 text-2xl font-bold tracking-[-0.03em] text-white">Missed call example</h2>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6ff8ff]">Workflow system example</p>
+          <h2 className="mt-2 text-2xl font-bold tracking-[-0.03em] text-white">Lead to booked job</h2>
         </div>
         <div className="rounded-full border border-[#7ff7ff]/40 bg-[#7ff7ff]/10 px-3 py-1 text-xs font-bold text-[#b9fbff]">No upfront cost</div>
       </div>
@@ -89,10 +89,10 @@ function ProcessVisual() {
       <div className="relative space-y-3">
         <div className="hf-line" />
         {[
-          ['Lead calls', 'Your team is busy.'],
-          ['Text goes out', '“Sorry we missed you. What can we help with?”'],
-          ['Staff gets context', 'Name, number, source, and next step are logged.'],
-          ['Follow-up continues', 'The lead gets followed up until they book or opt out.'],
+          ['Customer action', 'Call, form, quote request, review, appointment, or intake.'],
+          ['AI handles the first pass', 'Respond, summarize, classify, route, or draft the next step.'],
+          ['Staff gets context', 'The right person gets the details, status, and recommended action.'],
+          ['System keeps moving', 'Follow-up, reminders, records, and reporting continue without relying on memory.'],
         ].map(([title, text], index) => (
           <div key={title} className="hf-frame relative grid grid-cols-[44px_1fr] gap-3 rounded-2xl border border-[#7ff7ff]/25 bg-white/8 p-4 backdrop-blur" style={{ animationDelay: `${index * 180}ms` }}>
             <div className="hf-dot flex h-11 w-11 items-center justify-center rounded-full border border-[#7ff7ff]/50 bg-[#0d3443] text-sm font-bold text-[#7ff7ff]">{index + 1}</div>
@@ -106,7 +106,7 @@ function ProcessVisual() {
 
       <div className="mt-5 rounded-2xl border border-[#ef1d2b]/35 bg-[#ef1d2b]/10 p-4">
         <p className="text-sm font-bold text-white">The point</p>
-        <p className="mt-2 text-sm leading-6 text-[#d8eef2]">You do not buy a whole platform first. You see whether one fix can save time, recover leads, or protect revenue.</p>
+        <p className="mt-2 text-sm leading-6 text-[#d8eef2]">AI is only useful when it lives inside a real workflow. We connect the people, tools, data, and follow-up so work moves faster.</p>
       </div>
     </div>
   )
@@ -122,21 +122,21 @@ export default function HomePage() {
           <div className="relative flex flex-col justify-center">
             <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#0aaec0]/35 bg-[#e0fbff] px-4 py-2 text-sm font-black text-[#071f2b] shadow-sm">
               <Wrench size={15} />
-              AI systems for local businesses
+              AI implementation for business workflows
             </div>
 
             <h1 className="max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.05em] text-[#071f2b] sm:text-6xl lg:text-7xl">
-              We install AI-powered follow-up systems that help local businesses stop losing leads, jobs, and revenue.
+              We help companies implement AI-integrated systems inside the workflows they already use.
             </h1>
 
             <p className="mt-6 max-w-2xl text-xl leading-9 text-[#183641] sm:text-2xl sm:leading-10">
-              When calls get missed, forms sit in an inbox, quotes go quiet, or reviews never get asked for, money slips out of the business. We build the workflow that catches it, follows up, alerts the team, and tracks what happened.
+              We connect AI, automation, software, people, and follow-up so the business can increase revenue, efficiency, and productivity without ripping out the way it already works.
             </p>
 
             <div className="mt-7 rounded-2xl border border-[#071f2b] bg-[#071f2b] p-5 shadow-xl shadow-[#071f2b]/15">
               <p className="text-sm font-black uppercase tracking-[0.16em] text-[#7ff7ff]">Start with one pain point</p>
               <p className="mt-2 text-lg leading-8 text-white">
-                Pick one problem. We show the first quick fix at no upfront cost so you can see whether it can save time, recover leads, or protect revenue before you spend money on a larger system.
+                The quick fix is the front door. Pick one problem and we show the first useful fix at no upfront cost. If it can protect revenue, save time, or remove busywork, then we talk about the larger system behind it.
               </p>
             </div>
 
@@ -166,11 +166,11 @@ export default function HomePage() {
 
       <section className="border-b border-[#b8dce2] bg-[#071f2b] py-5 text-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-4 text-sm sm:px-6 lg:px-8">
-          <span className="flex items-center gap-2"><ClipboardCheck size={16} className="text-[#7ff7ff]" /> Pick a pain</span>
+          <span className="flex items-center gap-2"><ClipboardCheck size={16} className="text-[#7ff7ff]" /> Implement AI into current workflows</span>
           <span className="hidden h-4 w-px bg-white/20 sm:block" />
-          <span className="flex items-center gap-2"><UserRoundCheck size={16} className="text-[#7ff7ff]" /> See the quick fix</span>
+          <span className="flex items-center gap-2"><UserRoundCheck size={16} className="text-[#7ff7ff]" /> Improve revenue, efficiency, and productivity</span>
           <span className="hidden h-4 w-px bg-white/20 sm:block" />
-          <span className="flex items-center gap-2"><CheckCircle size={16} className="text-[#7ff7ff]" /> Spend money only if it makes sense</span>
+          <span className="flex items-center gap-2"><CheckCircle size={16} className="text-[#7ff7ff]" /> Start with one no-upfront-cost fix</span>
         </div>
       </section>
 
@@ -179,10 +179,10 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">Choose the problem</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] text-[#071f2b] sm:text-5xl">
-              Start with the pain you already know is costing you.
+              Start with the pain point, then build the system around it.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#365661]">
-              Text the number beside the one that fits, or send the form below. Keep it simple. “We miss calls.” “Quotes do not get followed up.” “Nobody asks for reviews.” That is enough to start.
+              We do more than lead follow-up. These are simple places to start because they make the problem easy to see. Text the number beside the one that fits, or send the form below with the workflow you want improved.
             </p>
           </div>
 
@@ -216,10 +216,10 @@ export default function HomePage() {
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">How this works</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] text-[#071f2b] sm:text-5xl">
-              No big pitch first. No software homework.
+              We fit AI into the way the company already runs.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#365661]">
-              You should not have to buy a full buildout just to find out whether automation will help. We start with one pain and one fix. If it can increase revenue, recover leads, or save staff time, then we talk about installing the full version.
+              A useful AI system needs more than prompts. It needs triggers, rules, access to the right data, clear handoffs, and a way to measure the result. We start small so the value is visible before a larger buildout.
             </p>
           </div>
 
@@ -239,17 +239,17 @@ export default function HomePage() {
       <section className="px-4 py-18 sm:px-6 lg:px-8 lg:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">Local business fit</p>
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">What we build</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] text-[#071f2b] sm:text-5xl">
-              Built for businesses where one missed lead can matter.
+              AI-integrated systems for the work that keeps the business moving.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#365661]">
-              This is for service businesses and offices that already get calls, forms, quote requests, appointments, or repeat admin work. We fix the handoff between the people, the software, and the follow-up.
+              We help with sales, marketing, admin, operations, customer communication, and internal workflows. The goal is practical: more revenue, faster work, fewer dropped balls, and less repetitive work on the team.
             </p>
           </div>
 
           <div className="rounded-[28px] border border-[#b8dce2] bg-white p-6 shadow-sm">
-            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">Good fit</p>
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">Common system types</p>
             <ul className="mt-5 space-y-4">
               {LOCAL_BUSINESSES.map((item) => (
                 <li key={item} className="flex gap-3 rounded-2xl border border-[#b8dce2] bg-[#f8feff] p-4 text-[#183641]">
@@ -267,15 +267,15 @@ export default function HomePage() {
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#7ff7ff]">AI belongs in the workflow</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] sm:text-5xl">
-              ChatGPT is not a business system.
+              AI should act inside the business, not sit off to the side.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#c9e6eb]">
-              AI helps after the process is clear. It needs a trigger, rules, context, a message, a handoff, and a way to track what happened. We build that sequence first. AI works inside it.
+              A team should not have to copy and paste work into a chatbot all day. We design the process so AI can help answer, summarize, draft, route, remind, report, and hand work back to a person when judgment matters.
             </p>
           </div>
           <div className="rounded-[28px] border border-[#7ff7ff]/25 bg-white/8 p-6">
             <div className="grid gap-3 sm:grid-cols-2">
-              {['Trigger', 'Rules', 'AI assist', 'Human handoff', 'Follow-up', 'Tracking'].map((item) => (
+              {['Trigger', 'Data', 'AI assist', 'Human handoff', 'Follow-up', 'Reporting'].map((item) => (
                 <div key={item} className="rounded-2xl border border-[#7ff7ff]/20 bg-white/8 p-4 text-sm font-bold text-[#d8fbff]">{item}</div>
               ))}
             </div>
@@ -288,10 +288,10 @@ export default function HomePage() {
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">Send the pain point</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] text-[#071f2b] sm:text-5xl">
-              Text or email the one problem you want fixed first.
+              Text or email the workflow you want improved first.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#365661]">
-              No upfront cost to ask. No need to explain your whole business. Pick the pain point. We will tell you what the first quick fix should look like and whether it is worth taking further.
+              No upfront cost to ask. No need to explain the whole company. Pick the problem. We will tell you what the first quick fix should look like and whether it is worth taking further.
             </p>
             <a
               href={SMS_LINK}

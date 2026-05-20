@@ -22,14 +22,14 @@ export default function Footer() {
               />
             </Link>
             <p className="max-w-md text-sm leading-6">
-              Pick one pain point. We show the first quick fix at no upfront cost so you can see whether it can save time, recover leads, or protect revenue before you spend money on a larger system.
+              We help companies implement AI-integrated systems inside their current workflows to increase revenue, efficiency, and productivity. Start with one no-upfront-cost quick fix, then build deeper if it makes sense.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2">
             <div>
-              <p className="mb-3 text-sm font-black text-[#071f2b]">Quick fixes</p>
+              <p className="mb-3 text-sm font-black text-[#071f2b]">AI systems</p>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/#quick-fixes" className="transition-colors hover:text-[#071f2b]">View Pain Points</Link></li>
+                <li><Link href="/#quick-fixes" className="transition-colors hover:text-[#071f2b]">View Starting Points</Link></li>
                 <li><Link href="/#quick-fix-form" className="transition-colors hover:text-[#071f2b]">Email a Pain Point</Link></li>
                 <li><Link href="/book" className="transition-colors hover:text-[#071f2b]">Book a Call</Link></li>
               </ul>
