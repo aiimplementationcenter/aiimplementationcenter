@@ -122,21 +122,21 @@ export default function HomePage() {
           <div className="relative flex flex-col justify-center">
             <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#0aaec0]/35 bg-[#e0fbff] px-4 py-2 text-sm font-black text-[#071f2b] shadow-sm">
               <Wrench size={15} />
-              No upfront cost to look at one quick fix
+              AI systems for local businesses
             </div>
 
             <h1 className="max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.05em] text-[#071f2b] sm:text-6xl lg:text-7xl">
-              Pick one problem. Let us show you the first fix.
+              We install AI-powered follow-up systems that help local businesses stop losing leads, jobs, and revenue.
             </h1>
 
             <p className="mt-6 max-w-2xl text-xl leading-9 text-[#183641] sm:text-2xl sm:leading-10">
-              Missed calls. Slow lead response. Quotes that go quiet. Review requests. No-shows. Repeating office work. Send us the pain point. We will show you the first workflow to fix before you spend money on a bigger system.
+              When calls get missed, forms sit in an inbox, quotes go quiet, or reviews never get asked for, money slips out of the business. We build the workflow that catches it, follows up, alerts the team, and tracks what happened.
             </p>
 
             <div className="mt-7 rounded-2xl border border-[#071f2b] bg-[#071f2b] p-5 shadow-xl shadow-[#071f2b]/15">
-              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#7ff7ff]">Plain version</p>
+              <p className="text-sm font-black uppercase tracking-[0.16em] text-[#7ff7ff]">Start with one pain point</p>
               <p className="mt-2 text-lg leading-8 text-white">
-                You choose one leak in the business. We map the text, email, CRM, calendar, staff alert, and follow-up sequence that should handle it. If that quick fix looks like it can save time or bring back revenue, we can install it.
+                Pick one problem. We show the first quick fix at no upfront cost so you can see whether it can save time, recover leads, or protect revenue before you spend money on a larger system.
               </p>
             </div>
 
