@@ -22,7 +22,7 @@ export default function Footer() {
               />
             </Link>
             <p className="max-w-md text-sm leading-6">
-              We help companies implement AI-integrated systems inside their current workflows to increase revenue, efficiency, and productivity. Start with one no-upfront-cost quick fix, then build deeper if it makes sense.
+              S.Y.S.T.E.M means Save Yourself Time, Energy, Money. We build AI-integrated systems inside current workflows so companies can save all three. Start with one no-upfront-cost quick fix, then build deeper if it makes sense.
             </p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2">

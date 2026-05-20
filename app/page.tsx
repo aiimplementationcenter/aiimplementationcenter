@@ -75,15 +75,33 @@ const LOCAL_BUSINESSES = [
   'Marketing systems: reviews, content support, SEO workflows, social follow-up',
 ]
 
+const SYSTEM_WORDS = [
+  ['S', 'Save'],
+  ['Y', 'Yourself'],
+  ['S', 'Time'],
+  ['T', 'Energy'],
+  ['E', 'Money'],
+  ['M', 'System'],
+]
+
 function ProcessVisual() {
   return (
     <div className="hf-stage rounded-[30px] border border-[#b8dce2] bg-[#071f2b] p-5 shadow-2xl shadow-[#00bcd4]/20 sm:p-6">
       <div className="mb-5 flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6ff8ff]">Workflow system example</p>
-          <h2 className="mt-2 text-2xl font-bold tracking-[-0.03em] text-white">Lead to booked job</h2>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6ff8ff]">S.Y.S.T.E.M</p>
+          <h2 className="mt-2 text-2xl font-bold tracking-[-0.03em] text-white">Save Yourself Time, Energy, Money</h2>
         </div>
         <div className="rounded-full border border-[#7ff7ff]/40 bg-[#7ff7ff]/10 px-3 py-1 text-xs font-bold text-[#b9fbff]">No upfront cost</div>
+      </div>
+
+      <div className="mb-5 grid grid-cols-3 gap-2 sm:grid-cols-6">
+        {SYSTEM_WORDS.map(([letter, word]) => (
+          <div key={`${letter}-${word}`} className="rounded-2xl border border-[#7ff7ff]/25 bg-white/8 p-3 text-center">
+            <p className="text-2xl font-black leading-none text-[#7ff7ff]">{letter}</p>
+            <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[#d8fbff]">{word}</p>
+          </div>
+        ))}
       </div>
 
       <div className="relative space-y-3">
@@ -106,7 +124,7 @@ function ProcessVisual() {
 
       <div className="mt-5 rounded-2xl border border-[#ef1d2b]/35 bg-[#ef1d2b]/10 p-4">
         <p className="text-sm font-bold text-white">The point</p>
-        <p className="mt-2 text-sm leading-6 text-[#d8eef2]">AI is only useful when it lives inside a real workflow. We connect the people, tools, data, and follow-up so work moves faster.</p>
+        <p className="mt-2 text-sm leading-6 text-[#d8eef2]">We sell the system. AI, automation, software, and handoffs are parts of it. The job is to save the company time, energy, and money.</p>
       </div>
     </div>
   )
@@ -122,21 +140,21 @@ export default function HomePage() {
           <div className="relative flex flex-col justify-center">
             <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#0aaec0]/35 bg-[#e0fbff] px-4 py-2 text-sm font-black text-[#071f2b] shadow-sm">
               <Wrench size={15} />
-              AI implementation for business workflows
+              S.Y.S.T.E.M: Save Yourself Time, Energy, Money
             </div>
 
             <h1 className="max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.05em] text-[#071f2b] sm:text-6xl lg:text-7xl">
-              We help companies implement AI-integrated systems inside the workflows they already use.
+              We build AI-integrated systems that save companies time, energy, and money.
             </h1>
 
             <p className="mt-6 max-w-2xl text-xl leading-9 text-[#183641] sm:text-2xl sm:leading-10">
-              We connect AI, automation, software, people, and follow-up so the business can increase revenue, efficiency, and productivity without ripping out the way it already works.
+              We implement those systems inside the workflows the company already uses, so the business can increase revenue, improve efficiency, and get more productive without ripping out the way it already works.
             </p>
 
             <div className="mt-7 rounded-2xl border border-[#071f2b] bg-[#071f2b] p-5 shadow-xl shadow-[#071f2b]/15">
               <p className="text-sm font-black uppercase tracking-[0.16em] text-[#7ff7ff]">Start with one pain point</p>
               <p className="mt-2 text-lg leading-8 text-white">
-                The quick fix is the front door. Pick one problem and we show the first useful fix at no upfront cost. If it can protect revenue, save time, or remove busywork, then we talk about the larger system behind it.
+                The quick fix is the front door. Pick one problem and we show the first useful fix at no upfront cost. If it can save time, energy, or money, then we talk about the larger system behind it.
               </p>
             </div>
 
@@ -166,11 +184,11 @@ export default function HomePage() {
 
       <section className="border-b border-[#b8dce2] bg-[#071f2b] py-5 text-white">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-4 text-sm sm:px-6 lg:px-8">
-          <span className="flex items-center gap-2"><ClipboardCheck size={16} className="text-[#7ff7ff]" /> Implement AI into current workflows</span>
+          <span className="flex items-center gap-2"><ClipboardCheck size={16} className="text-[#7ff7ff]" /> Save time</span>
           <span className="hidden h-4 w-px bg-white/20 sm:block" />
-          <span className="flex items-center gap-2"><UserRoundCheck size={16} className="text-[#7ff7ff]" /> Improve revenue, efficiency, and productivity</span>
+          <span className="flex items-center gap-2"><UserRoundCheck size={16} className="text-[#7ff7ff]" /> Save energy</span>
           <span className="hidden h-4 w-px bg-white/20 sm:block" />
-          <span className="flex items-center gap-2"><CheckCircle size={16} className="text-[#7ff7ff]" /> Start with one no-upfront-cost fix</span>
+          <span className="flex items-center gap-2"><CheckCircle size={16} className="text-[#7ff7ff]" /> Save money</span>
         </div>
       </section>
 
@@ -179,10 +197,10 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">Choose the problem</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] text-[#071f2b] sm:text-5xl">
-              Start with the pain point, then build the system around it.
+              Start with the pain point, then build the S.Y.S.T.E.M around it.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#365661]">
-              We do more than lead follow-up. These are simple places to start because they make the problem easy to see. Text the number beside the one that fits, or send the form below with the workflow you want improved.
+              We do more than lead follow-up. These are simple places to start because they make the problem easy to see. Text the number beside the one that fits, or send the form below with the workflow that costs too much time, energy, or money.
             </p>
           </div>
 
@@ -216,10 +234,10 @@ export default function HomePage() {
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">How this works</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] text-[#071f2b] sm:text-5xl">
-              We fit AI into the way the company already runs.
+              We fit the system into the way the company already runs.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#365661]">
-              A useful AI system needs more than prompts. It needs triggers, rules, access to the right data, clear handoffs, and a way to measure the result. We start small so the value is visible before a larger buildout.
+              A useful system needs more than prompts. It needs triggers, rules, access to the right data, clear handoffs, and a way to measure the result. AI can do part of the work. The system makes sure the work gets done.
             </p>
           </div>
 
@@ -241,10 +259,10 @@ export default function HomePage() {
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a90f16]">What we build</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] text-[#071f2b] sm:text-5xl">
-              AI-integrated systems for the work that keeps the business moving.
+              Systems for the work that keeps the business moving.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#365661]">
-              We help with sales, marketing, admin, operations, customer communication, and internal workflows. The goal is practical: more revenue, faster work, fewer dropped balls, and less repetitive work on the team.
+              We help with sales, marketing, admin, operations, customer communication, and internal workflows. The goal is practical: save time, save energy, save money, and increase revenue where the system can affect it.
             </p>
           </div>
 
@@ -267,10 +285,10 @@ export default function HomePage() {
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#7ff7ff]">AI belongs in the workflow</p>
             <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.045em] sm:text-5xl">
-              AI should act inside the business, not sit off to the side.
+              AI is part of the system, not the product by itself.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[#c9e6eb]">
-              A team should not have to copy and paste work into a chatbot all day. We design the process so AI can help answer, summarize, draft, route, remind, report, and hand work back to a person when judgment matters.
+              A team should not have to copy and paste work into a chatbot all day. We design the process so AI can answer, summarize, draft, route, remind, report, and hand work back to a person when judgment matters.
             </p>
           </div>
           <div className="rounded-[28px] border border-[#7ff7ff]/25 bg-white/8 p-6">
